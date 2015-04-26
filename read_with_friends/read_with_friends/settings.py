@@ -1,4 +1,5 @@
 from os.path import realpath, abspath, basename, dirname, join, normpath
+import os
 import json
 from django.core.exceptions import ImproperlyConfigured
 import sys
@@ -7,6 +8,9 @@ import sys
 CONFIG_ROOT = dirname(dirname(abspath(__file__)))
 PROJECT_ROOT = dirname(CONFIG_ROOT)
 SITE_NAME = basename(PROJECT_ROOT)
+TEMPLATE_DIRS = (
+            os.path.join(PROJECT_ROOT, 'templates'),
+            )
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -121,7 +125,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'read_with_friends.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'read_with_friends.wsgi.application'

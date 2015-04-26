@@ -1,4 +1,12 @@
+from os.path import realpath, abspath, basename, dirname, join, normpath
+import json
+from django.core.exceptions import ImproperlyConfigured
+import sys
 # Django settings for read_with_friends project.
+
+CONFIG_ROOT = dirname(dirname(abspath(__file__)))
+PROJECT_ROOT = dirname(CONFIG_ROOT)
+SITE_NAME = basename(PROJECT_ROOT)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -9,12 +17,26 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+with open("read_with_friends/secrets.json") as f:
+    SECRETS = json.loads(f.read())
+
+def get_secret(setting, secret=SECRETS):
+    """Get the secret variable or return explicit exception"""
+    try:
+        return SECRETS[setting]
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+DB_USER = get_secret("DB_USER")
+DB_PASS = get_secret("DB_PASS")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_db',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': DB_USER,
+        'PASSWORD': DB_PASS,
     }
 }
 

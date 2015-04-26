@@ -34,7 +34,7 @@ DB_PASS = get_secret("DB_PASS")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_db',
+        'NAME': 'read_with_friends',
         'USER': DB_USER,
         'PASSWORD': DB_PASS,
     }

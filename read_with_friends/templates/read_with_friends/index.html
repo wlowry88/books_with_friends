@@ -1,10 +1,37 @@
 <!doctype html>
-<head>
+<html>
+    <head>
 	<meta charset="utf-8">
 	<title>Read With Friends</title>
 	<meta name="description" content="Make reading fun, Create online book clubs with your friends, find new books to read, and get smarter!"> 
 	<meta name="author" content="Will Lowry">
-</head>
-<body>
-
-</body>
+	<script src="https://fb.me/react-0.13.2.js"></script>
+	<script src="https://fb.me/JSXTransformer-0.13.2.js"></script>
+    </head>
+    <body>
+	<div id="example1"></div>
+	<div id="example2"></div>
+	<div id="example3"></div>
+	<div id="example4"></div>
+	    <script type="text/jsx">
+            var HelloWorld = React.createClass({
+	        render: function() {
+                    return (
+                        <p>
+                            Hello, <input type="text" placeholder="Your name here" />!
+			    It is {this.props.date.toTimeString()}
+		       </p>
+		    );
+	        }
+	    });		
+            setInterval(function() {
+                for(var x=1; x<5; x++) {
+                    React.render(
+                        <HelloWorld date={new Date()} />,
+                        document.getElementById('example' + x)
+                    );
+                }  
+            }, 500);
+            </script>
+    </body>
+</html>

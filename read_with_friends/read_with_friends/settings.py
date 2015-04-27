@@ -9,8 +9,13 @@ CONFIG_ROOT = dirname(dirname(abspath(__file__)))
 PROJECT_ROOT = dirname(CONFIG_ROOT)
 SITE_NAME = basename(PROJECT_ROOT)
 TEMPLATE_DIRS = (
-            os.path.join(PROJECT_ROOT, 'templates'),
+        normpath(join(PROJECT_ROOT, 'read_with_friends/templates')),
             )
+print TEMPLATE_DIRS
+
+PIPELINE_COMPILERS = (
+          'react.utils.pipeline.JSXCompiler',
+          )
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -129,12 +134,6 @@ ROOT_URLCONF = 'read_with_friends.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'read_with_friends.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

@@ -5,15 +5,29 @@
 	<title>Read With Friends</title>
 	<meta name="description" content="Make reading fun, Create online book clubs with your friends, find new books to read, and get smarter!"> 
 	<meta name="author" content="Will Lowry">
-	<script src="https://fb.me/react-0.13.2.js"></script>
-	<script src="https://fb.me/JSXTransformer-0.13.2.js"></script>
+	<!--<script src="https://fb.me/react-0.13.2.js"></script>-->
+	<!--<script src="https://fb.me/JSXTransformer-0.13.2.js"></script>>-->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <style>
+            #sortable { list-style-type: none; margin: 0; padding: 0; width: 900px;cursor:move; }
+            #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 400px; height: 200px; font-size: 4em; text-align: center; }
+        </style>
     </head>
     <body>
 	<div id="example1"></div>
 	<div id="example2"></div>
 	<div id="example3"></div>
 	<div id="example4"></div>
-	    <script type="text/jsx">
+        <ul id="sortable">
+        <li class="ui-state-default" id="testdiv0"></li>
+        <li class="ui-state-default" id="testdiv1"></li>
+        <li class="ui-state-default" id="testdiv2"></li>
+        <li class="ui-state-default" id="testdiv3"></li>
+        </ul>
+	    <!--<script type="text/jsx">
             var HelloWorld = React.createClass({
 	        render: function() {
                     return (
@@ -23,16 +37,81 @@
 		       </p>
 		    );
 	        }
-	    });		
-            var new_paragraph = <p>HEY THERE</p>
-            setInterval(function() {
-                for(var x=1; x<5; x++) {
-                    React.render(
-                        <HelloWorld date={new Date()} />,
-                        document.getElementById('example' + x)
-                    );
-                }  
-            }, 2000);
+	    });	--><script>	
+                    $(function() {
+                        $( "#sortable" ).sortable();
+                        $( "#sortable" ).disableSelection();
+                    });
+                    function NewChart(el, title, xrange, yrange, xaxis, yaxis, test_data, control_data) {
+                            el.highcharts({
+                                chart: {
+                                    type: 'areaspline'
+                                },
+                                title: {
+                                    text: title
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'left',
+                                    verticalAlign: 'top',
+                                    x: 0,
+                                    y: -10,
+                                    floating: true,
+                                    borderWidth: 0,
+                                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                                },
+                                xAxis: {
+                                    categories: xrange,
+                                    plotBands: [{ // visualize the weekend
+                                        from: 4.5,
+                                        to: 6.5,
+                                        color: 'rgba(68, 170, 213, .2)'
+                                    }, {
+                                        from: 1.5,
+                                        to: 2.5,
+                                        color: 'rgba(68, 170, 213, .2)'
+                                    }]
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: yaxis
+                                    }
+                                },
+                                tooltip: {
+                                    shared: true,
+                                    valueSuffix: ' units'
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                plotOptions: {
+                                    areaspline: {
+                                        fillOpacity: 0.5
+                                    }
+                                },
+                                series: [{
+                                    name: 'Test',
+                                    data: test_data 
+                                }, {
+                                    name: 'Control',
+                                    data: control_data
+                                }]
+                            });
+                         }
+                     new NewChart($('#testdiv0'), 'CVR Chart', [1,2,3], [1,2,3,5,6], 'Hey', 'Fools', [1, 1.5, 2, 2.5, 4], [1, 1.5, 2, 3.2, 5]); 
+                     new NewChart($('#testdiv1'), 'Unit Sales', [1,2,3], [1,2,3,5,6], 'Hey', 'Fools', [1, 1.5, 2, 2.5, 4], [1, 1.5, 2, 3.2, 5]); 
+                     new NewChart($('#testdiv2'), 'Margin', [1,2,3], [1,2,3,5,6], 'Hey', 'Fools', [1, 1.5, 2, 2.5, 4], [1, 1.5, 2, 3.2, 5]); 
+                     new NewChart($('#testdiv3'), 'Some Other Metric', [1,2,3], [1,2,3,5,6], 'Hey', 'Fools', [1, 1.5, 2, 2.5, 4], [1, 1.5, 2, 3.2, 5]); 
+            //var new_paragraph = <p>HEY THERE</p>
+            //setInterval(function() {
+            //    for(var x=1; x<5; x++) {
+             //       React.render(
+              //          <HelloWorld date={new Date()} />,
+               //         document.getElementById('example' + x)
+           //         );
+          //      }  
+          //  }, 2000);
+         //   React.render(new_paragraph, document.getElementById('testdiv'));
             </script>
     </body>
 </html>
